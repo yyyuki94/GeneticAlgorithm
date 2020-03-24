@@ -17,13 +17,13 @@ class Generation:
         self.eval()
 
     # 適応度の最大値とそれを実現する個体を表示
-    def print_gen(self, gen):
+    def print_gen(self, gen, f):
         fitnesses = list(map(lambda x: x.get_fitness(), self.individuals))
         genes = list(map(lambda x: x.get_gene(), self.individuals))
 
         max_idx = np.argmax(fitnesses)
 
-        print("{}# Max Fitness: {}; Individual: {}".format(gen, fitnesses[max_idx], genes[max_idx]))
+        print("{}# Max Fitness: {}; Individual: {}".format(gen, fitnesses[max_idx], genes[max_idx]), file=f)
 
     # 全個体の適応度を評価
     def eval(self):

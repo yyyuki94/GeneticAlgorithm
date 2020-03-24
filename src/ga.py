@@ -25,17 +25,18 @@ def fitness_func(gene):
 
 # メイン処理
 def main():
-    print("Weight: {}".format(WEIGHT))
-    print("Value: {}".format(VALUE))
-    print("Capacity: {}".format(CAPACITY))
-    print("Generation: {}".format(GEN_NUM))
-    print("Individuals: {}\n".format(INDIVIDUAL_NUM))
+    with open("./log.txt", 'w') as f:
+        print("Weight: {}".format(WEIGHT), file=f)
+        print("Value: {}".format(VALUE), file=f)
+        print("Capacity: {}".format(CAPACITY), file=f)
+        print("Generation: {}".format(GEN_NUM), file=f)
+        print("Individuals: {}\n".format(INDIVIDUAL_NUM), file=f)
 
-    gen = Generation(INDIVIDUAL_NUM, GENE_LENGTH, fitness_func)
+        gen = Generation(INDIVIDUAL_NUM, GENE_LENGTH, fitness_func)
 
-    for i in range(GEN_NUM):
-        gen.print_gen(i)        # 現世代の最大値とその個体を表示
-        gen.nextgen()           # 次世代を生成
+        for i in range(GEN_NUM):
+            gen.print_gen(i + 1, f)        # 現世代の最大値とその個体を表示
+            gen.nextgen()                  # 次世代を生成
 
     return
 
