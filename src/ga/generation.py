@@ -32,8 +32,9 @@ class Generation:
 
     # 次世代を生成
     def nextgen(self):
+        self.nexts = self.individuals
+
         for i in range(self.individual_num):
-            self.nexts = self.individuals
             idx1, idx2 = self.selection(), self.selection()
             child = self.cross(idx1, idx2)
             self.nexts[i].set_gene(child)
@@ -46,8 +47,15 @@ class Generation:
         prob = list(map(lambda x: x.get_fitness(), self.individuals))
         prob = np.array(prob) / sum(prob)
 
+        cumprob = np.cumsum(prob)
         rand = np.random.rand()
-        selected_idx = np.argmin(np.abs(prob - rand))
+
+        selected_idx = 0
+
+        for i in range(len(cumprob)):
+            if rand < cumprob[i]:
+                selected_idx = i
+                break
 
         return selected_idx
 
